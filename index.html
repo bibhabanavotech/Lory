@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lorey Pro - Personal Fitness Coach</title>
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome (for icons) -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-blue: #2E86AB;
+        --accent-orange: #F24236;
+        --dark-navy: #102A43;
+        --light-gray: #F7F9FA;
+        --warm-white: #FFFFFF;
+        --success-green: #27AE60;
+        --gold: #F39C12;
+        --text-dark: #2C3E50;
+      }
+
+      body {
+        background-color: var(--light-gray);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        line-height: 1.6;
+        color: var(--text-dark);
+      }
+
+      /* Navbar container */
+      .custom-navbar {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+        gap: 20px;
+        z-index: 1000;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .nav-block {
+        background: var(--warm-white);
+        border-radius: 25px;
+        padding: 10px 18px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .logo-block {
+        border-radius: 50%;
+        padding: 8px !important;
+        background: var(--primary-blue);
+        color: var(--warm-white);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo-icon {
+        font-size: 28px;
+      }
+
+      .studio-name {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--primary-blue);
+        letter-spacing: 1px;
+      }
+
+      .links a {
+        text-decoration: none;
+        margin: 0 12px;
+        color: var(--primary-blue);
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+
+      .links a:hover {
+        color: var(--accent-orange);
+        text-decoration: underline;
+      }
+
+      /* Sticky mode */
+      .custom-navbar.sticky {
+        top: 0;
+        width: 100%;
+        height: 60px;
+        gap: 0;
+        background: var(--warm-white);
+        border-radius: 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .custom-navbar.sticky .nav-block {
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+      }
+
+      .custom-navbar.sticky .logo-block {
+        width: 45px;
+        height: 45px;
+      }
+
+      .custom-navbar.sticky .logo-icon {
+        font-size: 20px;
+      }
+
+      /* Hero section */
+      .hero {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-navy) 50%, var(--accent-orange) 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: var(--warm-white);
+        text-align: center;
+        padding: 0px;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cpath d='M0,0 Q250,100 500,0 T1000,0 L1000,200 Q750,100 500,200 T0,200 Z' fill='%23ffffff' opacity='0.1'/%3E%3C/svg%3E") repeat-x;
+        animation: wave 15s linear infinite;
+      }
+      
+      @keyframes wave {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-1000px); }
+      }
+      
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 900px;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        color: white;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero p {
+        font-size: 1.4rem;
+        margin: 30px 0;
+        font-style: italic;
+      }
+
+      .hero span {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      .hero a {
+        padding: 15px 30px;
+        color: var(--primary-blue);
+        background-color: var(--warm-white);
+        margin-top: 40px;
+        border-radius: 30px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .hero a:hover {
+        background-color: var(--accent-orange);
+        color: var(--warm-white);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .highlight-white {
+        color: var(--primary-blue);
+        padding: 10px 20px;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.95);
+        font-weight: 700;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Floating fitness icons */
+      .floating-icon {
+        position: absolute;
+        font-size: 60px;
+        color: rgba(255, 255, 255, 0.15);
+        animation: float 8s ease-in-out infinite;
+        pointer-events: none;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-30px) rotate(10deg); }
+      }
+      
+      .icon-1 { top: 15%; left: 10%; animation-delay: 0s; }
+      .icon-2 { top: 65%; right: 15%; animation-delay: 2s; }
+      .icon-3 { top: 40%; left: 80%; animation-delay: 4s; }
+
+      /* Main content layout */
+      .main-content {
+        background: var(--warm-white);
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: var(--primary-blue);
+        margin-bottom: 30px;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: var(--accent-orange);
+        margin: 20px 0;
+        border-radius: 2px;
+      }
+
+      /* Profile Image Styles */
+      .profile-image {
+        width: 100%;
+        max-width: 400px;
+        height: 500px;
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 4rem;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .profile-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10,50 Q25,25 50,50 Q75,75 90,50' stroke='%23ffffff' fill='none' stroke-width='2' opacity='0.3'/%3E%3C/svg%3E") repeat;
+        animation: pulse 4s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+      }
+
+      .exercise-image {
+        width: 100%;
+        max-width: 400px;
+        height: 350px;
+        background: linear-gradient(135deg, var(--success-green), var(--gold));
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        margin-bottom: 20px;
+      }
+
+      /* Content Sections */
+      .content-text {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: var(--text-dark);
+      }
+
+      .content-text.large {
+        font-size: 1.3rem;
+        font-weight: 500;
+      }
+
+      /* Gallery Section */
+      .gallery-section {
+        background: var(--light-gray);
+        padding: 80px 0;
+      }
+
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+      }
+
+      .media-item {
+        aspect-ratio: 16/10;
+        background: linear-gradient(135deg, var(--primary-blue), var(--accent-orange));
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .media-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      .media-item::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+      }
+
+      .media-item::after {
+        content: '▶';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 28px;
+        z-index: 1;
+      }
+
+      .media-item.photo::after {
+        content: '📷';
+        font-size: 32px;
+      }
+
+      /* Certifications */
+      .certifications {
+        background: var(--light-gray);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      .cert-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .cert-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(46, 134, 171, 0.2);
+        font-weight: 600;
+        color: var(--primary-blue);
+      }
+
+      .cert-list li:last-child {
+        border-bottom: none;
+      }
+
+      .cert-list li i {
+        color: var(--success-green);
+        margin-right: 10px;
+      }
+
+      /* Email highlight */
+      .email-highlight {
+        background: var(--accent-orange);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 25px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        margin: 10px 0;
+        transition: all 0.3s ease;
+      }
+
+      .email-highlight:hover {
+        background: var(--primary-blue);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Services Section */
+      .services-section {
+        padding: 80px 0;
+        background: var(--light-gray);
+      }
+
+      .services-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .service-tag {
+        background: var(--primary-blue);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .service-tag:hover {
+        background: var(--accent-orange);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Calendar placeholder */
+      .calendar-placeholder {
+        background: var(--warm-white);
+        border: 2px solid var(--primary-blue);
+        border-radius: 15px;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        color: var(--primary-blue);
+        font-weight: 600;
+      }
+
+      /* Quote Section */
+      .quote-section {
+        background: var(--primary-blue);
+        color: white;
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .quote-text {
+        font-size: 1.8rem;
+        font-style: italic;
+        margin-bottom: 20px;
+        max-width: 800px;
+        margin: 0 auto 20px;
+      }
+
+      .quote-author {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--gold);
+      }
+
+      /* Footer */
+      .footer-bar {
+        background: var(--dark-navy);
+        color: var(--warm-white);
+        font-size: 1rem;
+        padding: 30px 0;
+      }
+
+      .footer-bar a {
+        color: var(--warm-white);
+        margin-right: 20px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-bar a:hover {
+        color: var(--gold);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .custom-navbar {
+          width: 95%;
+          flex-wrap: wrap;
+        }
+
+        .profile-image,
+        .exercise-image {
+          max-width: 300px;
+          height: 300px;
+        }
+
+        .media-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body data-bs-spy="scroll" data-bs-target="#navbarLinks" data-bs-offset="80">
+    <!-- Navbar -->
+    <nav id="navbar" class="custom-navbar">
+      <div class="nav-block logo-block">
+        <i class="fas fa-dumbbell logo-icon"></i>
+      </div>
+
+      <div class="nav-block">
+        <div class="studio-name">Lorey Pro</div>
+      </div>
+
+      <div class="nav-block links" id="navbarLinks">
+        <a href="#about">About</a>
+        <a href="#why-fitness">Why Fitness</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section>
+      <div class="hero">
+        <div class="floating-icon icon-1">💪</div>
+        <div class="floating-icon icon-2">🏃‍♂️</div>
+        <div class="floating-icon icon-3">🏋️‍♀️</div>
+        
+        <div class="hero-content">
+          <h1>
+            Transform Your <span>Body</span><br/> 
+            Mind & <span>Life</span>
+          </h1>
+          <p>
+            <span class="highlight-white">30+ Years of Professional Fitness Coaching</span> 
+          </p>
+          <a href="#about" class="btn">Start Your Journey</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section class="main-content" id="about">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-1 order-2">
+            <div class="profile-image">
+              <i class="fas fa-user-tie"></i>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-2 order-1">
+            <h2 class="section-title">About Me</h2>
+            <div class="content-text large">
+              I'm Lorey Pro, and I've dedicated over 30 years to helping people achieve their fitness and performance goals. With a Master's degree in Kinesiology & Recreation and a lifelong passion for athletics, I've worked across commercial, private, public, non-profit, and university settings as a coach, trainer, and health professional. I've also competed in endurance events from 5Ks to 50-mile races and triathlons up to the half-ironman distance. Most importantly, I've had the privilege of helping countless people live healthier, stronger, and more balanced lives.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Fitness Matters Section -->
+    <section class="main-content" style="background: var(--light-gray);">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2 class="section-title">Why Fitness Matters</h2>
+            <div class="content-text large">
+              I believe physical fitness is one of the most powerful tools we have for living a longer, healthier, and more fulfilling life. Exercise goes far beyond weight loss or building muscle — it strengthens the heart, improves energy, sharpens the mind, and reduces the risk of chronic disease. Just as importantly, it builds confidence, resilience, and a sense of balance in daily life.
+              <br><br>
+              Movement is medicine. Whether it's walking, running, cycling, strength training, or group fitness, consistent exercise can transform the way you feel and function. My goal is to help people discover the kind of movement that excites them, fits their lifestyle, and supports their long-term health.
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="exercise-image">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Section - Gallery -->
+    <section class="gallery-section" id="gallery">
+      <div class="container">
+        <h2 class="section-title text-center">Gallery</h2>
+        <p class="text-center content-text">Images and Videos of Lorey in Action</p>
+        <div class="media-grid">
+          <div class="media-item photo" title="Lorey Training Session"></div>
+          <div class="media-item" title="Workout Video"></div>
+          <div class="media-item photo" title="Client Success Story"></div>
+          <div class="media-item" title="Training Techniques"></div>
+          <div class="media-item photo" title="Fitness Assessment"></div>
+          <div class="media-item" title="Group Training"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Me Section -->
+    <section class="main-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h2 class="section-title">Why Choose Me</h2>
+            <div class="content-text large">
+              With over three decades of professional experience, I bring both knowledge and passion to every client I work with. As an exercise physiologist, I've served with Canyon Ranch Tucson, Moveo Health, and El Rio Health, providing VO2 Max testing, fitness assessments, personalized exercise prescriptions, and educational lectures. Beyond credentials, I take pride in guiding people toward lasting lifestyle change — helping them feel stronger, more confident, and in control of their health.
+              <br><br>
+              📩 If you're ready to take the next step in your fitness journey, I'd love to work with you. Reach me at 
+              <a href="mailto:peakproformance@aol.com" class="email-highlight">peakproformance@aol.com</a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="certifications">
+              <h3 style="color: var(--primary-blue); margin-bottom: 20px;">My Certifications</h3>
+              <ul class="cert-list">
+                <li><i class="fas fa-certificate"></i> Certified Health Coach</li>
+                <li><i class="fas fa-graduation-cap"></i> MS Exercise Physiology</li>
+                <li><i class="fas fa-certificate"></i> Certified Personal Trainer (ACSM)</li>
+                <li><i class="fas fa-certificate"></i> MAT-PT</li>
+                <li><i class="fas fa-bicycle"></i> Master Spinning Instructor</li>
+                <li><i class="fas fa-certificate"></i> TRX Certified</li>
+                <li><i class="fas fa-certificate"></i> FMS Level 1</li>
+                <li><i class="fas fa-certificate"></i> YogaFit Level 1</li>
+                <li><i class="fas fa-running"></i> POSE Running</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services and Calendar Section -->
+    <section class="services-section" id="services">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h2 class="section-title">Services</h2>
+            <p class="content-text" style="margin-bottom: 30px;">Here are the training and coaching options I offer:</p>
+            <div class="services-grid">
+              <div class="service-tag">Private Personal Training</div>
+              <div class="service-tag">Online Personal Training</div>
+              <div class="service-tag">Group Bootcamps</div>
+              <div class="service-tag">Online Group Bootcamps</div>
+              <div class="service-tag">Partner Training</div>
+              <div class="service-tag">Improving General Fitness</div>
+              <div class="service-tag">Muscle and Strength Gain</div>
+              <div class="service-tag">Women's Fitness</div>
+              <div class="service-tag">Functional and Core Training</div>
+              <div class="service-tag">Weight Loss</div>
+              <div class="service-tag">Endurance Training</div>
+              <div class="service-tag">Group Training</div>
+              <div class="service-tag">Bootcamp</div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h2 class="section-title">Schedule</h2>
+            <div class="calendar-placeholder">
+              <div class="text-center">
+                <i class="fas fa-calendar-alt" style="font-size: 3rem; margin-bottom: 20px; display: block;"></i>
+                Book Your Session<br>
+                <small style="color: var(--text-dark); font-weight: normal;">Calendar integration available</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Motivational Quote Section -->
+    <section class="quote-section">
+      <div class="container">
+        <div class="quote-text">
+          "Exercise is the key not only to physical health but to peace of mind."
+        </div>
+        <div class="quote-author">— Nelson Mandela</div>
+      </div>
+    </section>
+
+    <!-- Footer Bar -->
+    <div class="footer-bar text-center" id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 text-start">
+            <i class="fas fa-dumbbell"></i> Transform Your Life Through Fitness
+          </div>
+          <div class="col-md-6 text-end">
+            <a href="mailto:peakproformance@aol.com"><i class="fas fa-envelope"></i> peakproformance@aol.com</a>
+            <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Sticky navbar effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 10) {
+          navbar.classList.add("sticky");
+        } else {
+          navbar.classList.remove("sticky");
+        }
+      });
+
+      // Smooth scroll
+      document.querySelectorAll(".links a").forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Service tag hover effects
+      document.querySelectorAll('.service-tag').forEach(tag => {
+        tag.addEventListener('click', function() {
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            this.style.transform = 'translateY(-2px)';
+          }, 100);
+        });
+      });
+
+      // Media item click effects
+      document.querySelectorAll('.media-item').forEach(item => {
+        item.addEventListener('click', function() {
+          this.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            this.style.transform = 'translateY(-5px)';
+          }, 150);
+        });
+      });
+
+      // Scroll animations
+      window.addEventListener('scroll', function() {
+        const elements = document.querySelectorAll('.profile-image, .exercise-image, .certifications');
+        elements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          
+          if (elementTop < windowHeight * 0.8) {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+          }
+        });
+      });
+
+      // Initialize animations
+      document.addEventListener('DOMContentLoaded', function() {
+        const elements = document.querySelectorAll('.profile-image, .exercise-image, .certifications');
+        elements.forEach(element => {
+          element.style.opacity = '0';
+          element.style.transform = 'translateY(30px)';
+          element.style.transition = 'all 0.8s ease';
+        });
+      });
+    </script>
+  </body>
+</html>
